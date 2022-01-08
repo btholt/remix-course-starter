@@ -5,7 +5,7 @@ description: "Brian Holt introduces you to himself, the Complete Intro to React 
 
 Hello! And welcome to the sixth edition of the Complete Intro to React as taught by [Brian Holt][twitter].
 
-![Cat, dog, and rat logo for the course](./images/BRAND-WHearts.png)
+![Cat, dog, and rat logo for the course](./BRAND-WHearts.png)
 
 > You _do not_ need to take the previous versions of this course in order to take this one. This is a total revision of the course that we do to keep it fresh.
 

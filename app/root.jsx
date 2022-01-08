@@ -7,32 +7,30 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
 } from "remix";
-
-import "prismjs";
+import { useState } from "react";
 
 import Footer from "~/components/footer";
 import Header from "~/components/header";
+import { Provider as HeaderProvider } from "~/headerContext";
+import { Provider as CourseInfoProvider, Context } from "~/courseInfoContext";
 
+import "@fortawesome/fontawesome-free/js/all.js";
 import coursesCss from "~/styles/courses.css";
 import variablesCss from "~/styles/variables.css";
 import footerCss from "~/styles/footer.css";
-
-import "@fortawesome/fontawesome-free/js/all.js";
-
-/* 
-  change your syntax highlighting theme here
-  https://github.com/PrismJS/prism/tree/master/themes 
-*/
-import prismTheme from "prismjs/themes/prism-solarizedlight.css";
+import hlTheme from "highlight.js/styles/a11y-light.css";
+import getCourseConfig from "./course";
+import favicons from "~/favicon";
 
 export let links = () => {
   return [
-    // { rel: "stylesheet", href: fontAwesome },
-    { rel: "stylesheet", href: prismTheme },
+    { rel: "stylesheet", href: hlTheme },
     { rel: "stylesheet", href: coursesCss },
     { rel: "stylesheet", href: variablesCss },
     { rel: "stylesheet", href: footerCss },
+    ...favicons,
   ];
 };
 
@@ -124,14 +122,28 @@ function Document({ children, title }) {
   );
 }
 
+export const loader = async ({ params }) => {
+  return getCourseConfig();
+};
+
 function Layout({ children }) {
+  const courseInfo = useLoaderData();
+  const headerHook = useState({});
   return (
-    <div className="remix-app">
-      <Header />
-      <div className="content-container">
-        <div className="main">{children}</div>
-      </div>
-      <Footer twitter="holtbt" github="btholt" linkedin="btholt" />
-    </div>
+    <CourseInfoProvider value={courseInfo}>
+      <HeaderProvider value={headerHook}>
+        <div className="remix-app">
+          <Header title={courseInfo.title} />
+          <div className="content-container">
+            <div className="main">{children}</div>
+          </div>
+          <Footer
+            twitter={courseInfo.social.twitter}
+            github={courseInfo.social.github}
+            linkedin={courseInfo.social.linkedin}
+          />
+        </div>
+      </HeaderProvider>
+    </CourseInfoProvider>
   );
 }

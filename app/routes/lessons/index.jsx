@@ -9,7 +9,6 @@ export default function Lessons() {
   const sections = useLoaderData();
   return (
     <div>
-      <h1>Lessons!?</h1>
       <ol>
         {sections.map((section) => (
           <li key={section.slug}>

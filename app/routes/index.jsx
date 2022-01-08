@@ -4,9 +4,12 @@ import { getLessons } from "~/lesson";
 import Corner from "~/components/corner";
 import author from "~/../images/author.jpg";
 import courseIcon from "~/../images/course-icon.png";
+import getCourseConfig from "~/course";
 
 export const loader = () => {
-  return getLessons();
+  const courseInfo = getCourseConfig();
+  const lessons = getLessons();
+  return Promise.all([courseInfo, lessons]);
 };
 
 export let meta = () => {
@@ -17,27 +20,27 @@ export let meta = () => {
 };
 
 export default function Lessons() {
-  const sections = useLoaderData();
+  const [courseInfo, sections] = useLoaderData();
   return (
     <div>
       <div className="jumbotron">
         <div className="courseInfo">
           <div className="courseInfo-inner">
-            <h1>A Course Title</h1>
-            <h2>A Course Subtitle</h2>
+            <h1>{courseInfo.title}</h1>
+            <h2>{courseInfo.subtitle}</h2>
             <div className="author">
               <div className="image">
-                <img src={author} alt="" className="image" />
+                <img src={author} alt="author image" className="image" />
               </div>
               <div className="info">
-                <div className="name">An Author</div>
-                <div className="company">An Author's Company</div>
+                <div className="name">{courseInfo.author.name}</div>
+                <div className="company">{courseInfo.author.company}</div>
               </div>
             </div>
           </div>
         </div>
         <div className="courseIcon">
-          <img src={courseIcon} alt="" />
+          <img src={courseIcon} alt="course icon" />
         </div>
       </div>
       <div className="main-card">
@@ -48,7 +51,7 @@ export default function Lessons() {
               <li key={section.slug}>
                 <div className="lesson-details">
                   <div className="lesson-preface">
-                    <i className="fas fa-info-circle"></i>
+                    <i className={`fas fa-${section.icon}`}></i>
                   </div>
                   <div className="lesson-text">
                     <h2 className="lesson-section-title">{section.title}</h2>
@@ -60,9 +63,7 @@ export default function Lessons() {
                       ))}
                     </ol>
                   </div>
-                  <div className="details-bg">
-                    <Corner />
-                  </div>
+                  <Corner />
                 </div>
               </li>
             ))}

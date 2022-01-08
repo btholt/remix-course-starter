@@ -286,6 +286,8 @@ blockquote {
   background-color: var(--emphasized-bg);
   border: 2px solid var(--emphasized-border);
   border-radius: 5px;
+  width: 100%;
+  margin: 10px 0;
 }
 
 blockquote > *:last-child {
@@ -356,8 +358,7 @@ ol.sections-name .lesson-preface {
 }
 
 .lesson-preface.lesson-preface > svg {
-  width: 100%;
-  max-width: 60px;
+  width: 80%;
   height: inherit;
 }
 

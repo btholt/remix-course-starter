@@ -3,16 +3,52 @@ import fs from "fs/promises";
 import parseFrontMatter from "front-matter";
 import { titleCase } from "title-case";
 import { marked } from "marked";
+import hljs from "highlight.js";
+
+marked.setOptions({
+  baseUrl: "http://localhost:3000", // TODO FIX ME
+  highlight: function (code, lang) {
+    const language = hljs.getLanguage(lang) ? lang : "plaintext";
+    return hljs.highlight(code, { language }).value;
+  },
+  langPrefix: "hljs language-",
+});
+const DEFAULT_ICON = "info-circle";
 
 const lessonsPath = path.join(__dirname, "..", "lessons");
 
-function getTitle(slug, attributes) {
-  let title = attributes.title;
+function getTitle(slug, override) {
+  let title = override;
   if (!title) {
     title = titleCase(slug.split("-").join(" "));
   }
 
   return title;
+}
+
+async function getMeta(section) {
+  let meta = {};
+  try {
+    const file = await fs.readFile(
+      path.join(lessonsPath, section, "meta.json")
+    );
+    meta = JSON.parse(file.toString());
+  } catch (e) {
+    // no meta.json, nothing to do
+  }
+
+  return meta;
+}
+
+function slugify(inputPath) {
+  const pathParts = inputPath.split("-");
+  const pathOrder = pathParts.shift();
+  const pathSlug = pathParts.join("-");
+  return {
+    slug: pathSlug,
+    order: pathOrder,
+    title: titleCase(pathParts.join(" ")),
+  };
 }
 
 export async function getLessons() {
@@ -28,22 +64,20 @@ export async function getLessons() {
 
     const lessonsDir = await fs.readdir(path.join(lessonsPath, dirFilename));
 
-    const uneditedSectionTitle = dirFilename;
-    const sectionParts = uneditedSectionTitle.split("-");
-    const sectionOrder = sectionParts.shift();
-    const sectionSlug = sectionParts.join("-");
-    let sectionTitle = titleCase(sectionParts.join(" "));
+    let {
+      title: sectionTitle,
+      order: sectionOrder,
+      slug: sectionSlug,
+    } = slugify(dirFilename);
 
-    try {
-      const file = await fs.readFile(
-        path.join(lessonsPath, dirFilename, "meta.json")
-      );
-      const meta = JSON.parse(file.toString());
-      if (meta.title) {
-        sectionTitle = meta.title;
-      }
-    } catch (e) {
-      // no meta.json, nothing to do
+    let icon = DEFAULT_ICON;
+
+    const meta = await getMeta(dirFilename);
+    if (meta.title) {
+      sectionTitle = meta.title;
+    }
+    if (meta.icon) {
+      icon = meta.icon;
     }
 
     const lessons = [];
@@ -63,7 +97,7 @@ export async function getLessons() {
 
       slug = slugParts.join("-");
 
-      const title = getTitle(slug, attributes);
+      const title = getTitle(slug, attributes.title);
 
       lessons.push({
         slug,
@@ -75,6 +109,7 @@ export async function getLessons() {
     }
 
     sections.push({
+      icon,
       title: sectionTitle,
       slug: sectionSlug,
       lessons,
@@ -88,24 +123,80 @@ export async function getLessons() {
 export async function getLesson(targetDir, targetFile) {
   const dir = await fs.readdir(lessonsPath);
 
-  for (let dirPath of dir) {
+  for (let i = 0; i < dir.length; i++) {
+    const dirPath = dir[i];
     if (dirPath.endsWith(targetDir)) {
-      const lessonDir = await fs.readdir(path.join(lessonsPath, dirPath));
+      const lessonDir = (
+        await fs.readdir(path.join(lessonsPath, dirPath))
+      ).filter((str) => str.endsWith(".md"));
 
-      for (let slugPath of lessonDir) {
-        console.log(targetFile, slugPath, slugPath + ".md");
+      for (let j = 0; j < lessonDir.length; j++) {
+        const slugPath = lessonDir[j];
         if (slugPath.endsWith(targetFile + ".md")) {
           const file = await fs.readFile(
             path.join(lessonsPath, dirPath, slugPath)
           );
           const { attributes, body } = parseFrontMatter(file.toString());
           const html = marked(body);
-          const title = getTitle(targetFile, attributes);
+          const title = getTitle(targetFile, attributes.title);
+          const meta = await getMeta(dirPath);
+
+          const section = getTitle(targetDir, meta.title);
+          const icon = meta.icon ? meta.icon : DEFAULT_ICON;
+
+          let nextSlug;
+          let prevSlug;
+
+          // get next
+          if (lessonDir[j + 1]) {
+            // has next in section
+            const { slug: next } = slugify(lessonDir[j + 1]);
+            nextSlug = `${targetDir}/${next.replace(/\.md$/, "")}`;
+          } else if (dir[i + 1]) {
+            // has next in next section
+            const nextDir = (
+              await fs.readdir(path.join(lessonsPath, dir[i + 1]))
+            ).filter((str) => str.endsWith(".md"));
+            const nextDirSlug = slugify(dir[i + 1]).slug;
+            const nextLessonSlug = slugify(nextDir[0]).slug.replace(
+              /\.md$/,
+              ""
+            );
+            nextSlug = `${nextDirSlug}/${nextLessonSlug}`;
+          } else {
+            // last section
+            nextSlug = null;
+          }
+
+          // get prev
+          if (lessonDir[j - 1]) {
+            // has prev in section
+            const { slug: prev } = slugify(lessonDir[j - 1]);
+            prevSlug = `${targetDir}/${prev.replace(/\.md$/, "")}`;
+          } else if (dir[i - 1]) {
+            // has prev in prev section
+            const prevDir = (
+              await fs.readdir(path.join(lessonsPath, dir[i - 1]))
+            ).filter((str) => str.endsWith(".md"));
+            const prevDirSlug = slugify(dir[i - 1]).slug;
+            const prevLessonSlug = slugify(
+              prevDir[prevDir.length - 1]
+            ).slug.replace(/\.md$/, "");
+            prevSlug = `${prevDirSlug}/${prevLessonSlug}`;
+          } else {
+            // first section
+            prevSlug = null;
+          }
+
           return {
             attributes,
             html,
             slug: targetFile,
             title,
+            section,
+            icon,
+            nextSlug: path.join("/lessons", nextSlug),
+            prevSlug: path.join("/lessons", prevSlug),
           };
         }
       }
