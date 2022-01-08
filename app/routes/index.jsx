@@ -43,6 +43,11 @@ export default function Lessons() {
           <img src={courseIcon} alt="course icon" />
         </div>
       </div>
+      {courseInfo.frontendMastersLink ? (
+        <a href={courseInfo.frontendMastersLink} className="cta-btn">
+          Watch on Frontend Masters
+        </a>
+      ) : null}
       <div className="main-card">
         <h1 className="lesson-title">Table of Contents</h1>
         <div className="lesson-content">

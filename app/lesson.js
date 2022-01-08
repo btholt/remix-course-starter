@@ -195,8 +195,8 @@ export async function getLesson(targetDir, targetFile) {
             title,
             section,
             icon,
-            nextSlug: path.join("/lessons", nextSlug),
-            prevSlug: path.join("/lessons", prevSlug),
+            nextSlug: nextSlug ? path.join("/lessons", nextSlug) : null,
+            prevSlug: prevSlug ? path.join("/lessons", prevSlug) : null,
           };
         }
       }

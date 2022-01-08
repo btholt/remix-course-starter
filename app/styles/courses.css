@@ -66,8 +66,37 @@ a {
 .navbar h2 {
   font-size: 14px;
   margin: inherit;
+  margin-left: 15px;
   padding: inherit;
   text-transform: uppercase;
+}
+
+.navbar-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+header .cta-btn {
+  display: none; /* only displays at large screen sizes */
+}
+
+.main .cta-btn {
+  width: 90%;
+  margin: 20px auto 0px auto;
+  max-width: 500px;
+  padding: 12px 20px;
+}
+
+.cta-btn {
+  border-radius: 10px;
+  background: var(--nav-buttons);
+  color: var(--nav-buttons-text);
+  padding: 7px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .jumbotron {
@@ -91,6 +120,14 @@ a {
 }
 
 @media (min-width: 1000px) {
+  header .cta-btn {
+    display: flex;
+  }
+
+  .main .cta-btn {
+    display: none;
+  }
+
   .jumbotron {
     display: flex;
     width: 100%;

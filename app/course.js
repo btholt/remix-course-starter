@@ -10,6 +10,7 @@ const DEFAULT_CONFIG = {
   title: "A Superb Course",
   subtitle: "That Teaches Nice Things",
   iconImagePath: "~/../images/course-icon.png",
+  frontendMastersLink: "",
   social: {
     linkedin: "btholt",
     github: "btholt",
