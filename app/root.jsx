@@ -24,6 +24,8 @@ import hlTheme from "highlight.js/styles/a11y-light.css";
 import getCourseConfig from "./course";
 import favicons from "~/favicon";
 
+import cover from "~/../images/social-share-cover.jpg";
+
 export let links = () => {
   return [
     { rel: "stylesheet", href: hlTheme },
@@ -32,6 +34,18 @@ export let links = () => {
     { rel: "stylesheet", href: footerCss },
     ...favicons,
   ];
+};
+
+export let meta = ({ data }) => {
+  console.log(process.env.NODE_ENV);
+  return {
+    title: data.title,
+    "twitter:card": "summary_large_image",
+    "og:image": cover,
+    "og:description": data.description,
+    "og:title": data.title,
+    keywords: data.keywords.join(","),
+  };
 };
 
 // https://remix.run/api/conventions#default-export

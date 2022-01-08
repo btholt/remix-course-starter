@@ -5,12 +5,12 @@ const DEFAULT_CONFIG = {
   author: {
     name: "An Author",
     company: "An Author's Company",
-    imagePath: "~/../images/author.jpg",
   },
   title: "A Superb Course",
   subtitle: "That Teaches Nice Things",
-  iconImagePath: "~/../images/course-icon.png",
   frontendMastersLink: "",
+  description: "A nice course for nice people.",
+  keywords: ["a nice course", "for people", "to learn", "nice things"],
   social: {
     linkedin: "btholt",
     github: "btholt",

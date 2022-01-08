@@ -4,7 +4,7 @@
 module.exports = {
   appDirectory: "app",
   browserBuildDirectory: "public/build",
-  publicPath: "/build/",
+  publicPath: "/remix-course-starter/",
   serverBuildDirectory: "build",
-  devServerPort: 8002
+  devServerPort: 8002,
 };

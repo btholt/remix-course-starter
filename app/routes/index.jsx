@@ -12,10 +12,10 @@ export const loader = () => {
   return Promise.all([courseInfo, lessons]);
 };
 
-export let meta = () => {
+export let meta = ({ parentsData }) => {
   return {
-    title: "lol change me",
-    description: "lol change me!",
+    title: parentsData.root.title,
+    description: parentsData.root.description,
   };
 };
 
