@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:/Users/brianholt/personal/remix-course-starter/app/routes/demos/about/index.jsx?browser", "../../../../../app/routes/demos/about/index.jsx"],
+  "sourcesContent": ["export { default } from \"/Users/brianholt/personal/remix-course-starter/app/routes/demos/about/index.jsx\";", "import { Link } from \"remix\";\n\nexport default function AboutIndex() {\n  return (\n    <div>\n      <p>\n        You are looking at the index route for the <code>/about</code> URL\n        segment, but there are nested routes as well!\n      </p>\n      <p>\n        <strong>\n          <Link to=\"whoa\">Check out one of them here.</Link>\n        </strong>\n      </p>\n    </div>\n  );\n}\n"],
+  "mappings": ";;;;;;;;;AAAA;;;ACAA;AAEe,sBAAsB;AACnC,SACE,oCAAC,OAAD,MACE,oCAAC,KAAD,MAAG,+CAC0C,oCAAC,QAAD,MAAM,WAAa,uDAGhE,oCAAC,KAAD,MACE,oCAAC,UAAD,MACE,oCAAC,MAAD;AAAA,IAAM,IAAG;AAAA,KAAO;AAAA;",
+  "names": []
+}

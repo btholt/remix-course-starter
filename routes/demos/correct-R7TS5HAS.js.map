@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:/Users/brianholt/personal/remix-course-starter/app/routes/demos/correct.jsx?browser", "../../../../app/routes/demos/correct.jsx"],
+  "sourcesContent": ["export { default } from \"/Users/brianholt/personal/remix-course-starter/app/routes/demos/correct.jsx\";", "export default function NiceWork() {\n  return <h1>You got it right!</h1>;\n}\n"],
+  "mappings": ";;;;;;AAAA;;;ACAA;AAAe,oBAAoB;AACjC,SAAO,oCAAC,MAAD,MAAI;AAAA;",
+  "names": []
+}

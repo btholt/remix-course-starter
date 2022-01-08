@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:/Users/brianholt/personal/remix-course-starter/app/routes/lessons/index.jsx?browser", "../../../../app/routes/lessons/index.jsx"],
+  "sourcesContent": ["export { default } from \"/Users/brianholt/personal/remix-course-starter/app/routes/lessons/index.jsx\";", "import { Link, useLoaderData } from \"remix\";\nimport { getLessons } from \"~/lesson\";\n\nexport const loader = () => {\n  return getLessons();\n};\n\nexport default function Lessons() {\n  const sections = useLoaderData();\n  return (\n    <div>\n      <h1>Lessons!?</h1>\n      <ol>\n        {sections.map((section) => (\n          <li key={section.slug}>\n            <h2>{section.title}</h2>\n            <ol>\n              {section.lessons.map((lesson) => (\n                <li key={lesson.slug}>\n                  <Link to={lesson.fullSlug}>{lesson.title}</Link>\n                </li>\n              ))}\n            </ol>\n          </li>\n        ))}\n      </ol>\n    </div>\n  );\n}\n"],
+  "mappings": ";;;;;;;;AAAA;;;ACAA;AAOe,mBAAmB;AAChC,QAAM,WAAW;AACjB,SACE,oCAAC,OAAD,MACE,oCAAC,MAAD,MAAI,cACJ,oCAAC,MAAD,MACG,SAAS,IAAI,CAAC,YACb,oCAAC,MAAD;AAAA,IAAI,KAAK,QAAQ;AAAA,KACf,oCAAC,MAAD,MAAK,QAAQ,QACb,oCAAC,MAAD,MACG,QAAQ,QAAQ,IAAI,CAAC,WACpB,oCAAC,MAAD;AAAA,IAAI,KAAK,OAAO;AAAA,KACd,oCAAC,MAAD;AAAA,IAAM,IAAI,OAAO;AAAA,KAAW,OAAO;AAAA;",
+  "names": []
+}

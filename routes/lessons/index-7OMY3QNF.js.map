@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:/Users/brianholt/personal/remix-course-starter/app/routes/lessons/index.js?browser"],
+  "sourcesContent": ["export * from \"/Users/brianholt/personal/remix-course-starter/app/routes/lessons/index.js\";"],
+  "mappings": ";;;;;AAAA;",
+  "names": []
+}

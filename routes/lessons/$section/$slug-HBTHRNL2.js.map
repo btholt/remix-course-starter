@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:/Users/brianholt/personal/remix-course-starter/app/routes/lessons/$section/$slug.jsx?browser", "../../../../../app/routes/lessons/$section/$slug.jsx"],
+  "sourcesContent": ["export { default, meta } from \"/Users/brianholt/personal/remix-course-starter/app/routes/lessons/$section/$slug.jsx\";", "import { useLoaderData } from \"remix\";\nimport { getLesson } from \"~/lesson\";\n\nexport const loader = async ({ params }) => {\n  return getLesson(params.section, params.slug);\n};\n\nexport const meta = (routeData) => {\n  console.log(routeData);\n  return {\n    title: routeData.data.attributes.title,\n    description: routeData.data.attributes.description,\n  };\n};\n\nexport default function LessonSlug() {\n  const post = useLoaderData();\n  return <div dangerouslySetInnerHTML={{ __html: post.html }} />;\n}\n"],
+  "mappings": ";;;;;;;;;AAAA;;;ACAA;AAOO,IAAM,OAAO,CAAC,cAAc;AACjC,UAAQ,IAAI;AACZ,SAAO;AAAA,IACL,OAAO,UAAU,KAAK,WAAW;AAAA,IACjC,aAAa,UAAU,KAAK,WAAW;AAAA;AAAA;AAI5B,sBAAsB;AACnC,QAAM,OAAO;AACb,SAAO,oCAAC,OAAD;AAAA,IAAK,yBAAyB,EAAE,QAAQ,KAAK;AAAA;AAAA;",
+  "names": []
+}

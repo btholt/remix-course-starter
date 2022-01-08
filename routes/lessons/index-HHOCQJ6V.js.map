@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:/Users/brianholt/personal/remix-course-starter/app/routes/lessons/index.jsx?browser", "../../../../app/routes/lessons/index.jsx"],
+  "sourcesContent": ["export { default } from \"/Users/brianholt/personal/remix-course-starter/app/routes/lessons/index.jsx\";", "import { Link, useLoaderData } from \"remix\";\nimport { getLessons } from \"~/lesson\";\n\nexport const loader = () => {\n  return getLessons();\n};\n\nexport default function Lessons() {\n  const lessons = useLoaderData();\n  console.log(lessons);\n  return (\n    <div>\n      <h1>Lessons!?</h1>\n      <ul>\n        {lessons.map(post => (\n          <li key={post.slug}>\n            <Link to={post.slug}>{post.title}</Link>\n          </li>\n        ))}\n      </ul>\n    </div>\n  );\n}"],
+  "mappings": ";;;;;;;;;;AAAA;;;ACAA;AAOe,mBAAmB;AAChC,QAAM,UAAU;AAChB,UAAQ,IAAI;AACZ,SACE,oCAAC,OAAD,MACE,oCAAC,MAAD,MAAI,cACJ,oCAAC,MAAD,MACG,QAAQ,IAAI,UACX,oCAAC,MAAD;AAAA,IAAI,KAAK,KAAK;AAAA,KACZ,oCAAC,MAAD;AAAA,IAAM,IAAI,KAAK;AAAA,KAAO,KAAK;AAAA;",
+  "names": []
+}

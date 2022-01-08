@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:/Users/brianholt/personal/remix-course-starter/app/routes/lessons/index.jsx?browser", "../../../../app/routes/lessons/index.jsx"],
+  "sourcesContent": ["export { default } from \"/Users/brianholt/personal/remix-course-starter/app/routes/lessons/index.jsx\";", "import { useLoaderData } from \"remix\";\n\nexport const loader = () => {\n  return [\n    {\n      slug: \"my-first-post\",\n      title: \"My First Post\"\n    },\n    {\n      slug: \"90s-mixtape\",\n      title: \"A Mixtape I Made Just For You\"\n    }\n  ];\n};\n\nexport default function Lessons() {\n  const lessons = useLoaderData();\n  console.log(lessons);\n  return (\n    <div>\n      <h1>Lessons!?</h1>\n      <ul>\n        {lessons.map(post => (\n          <li key={post.slug}>\n            <Link to={post.slug}>{post.title}</Link>\n          </li>\n        ))}\n      </ul>\n    </div>\n  );\n}"],
+  "mappings": ";;;;;;;;;AAAA;;;ACAA;AAee,mBAAmB;AAChC,QAAM,UAAU;AAChB,UAAQ,IAAI;AACZ,SACE,oCAAC,OAAD,MACE,oCAAC,MAAD,MAAI,cACJ,oCAAC,MAAD,MACG,QAAQ,IAAI,UACX,oCAAC,MAAD;AAAA,IAAI,KAAK,KAAK;AAAA,KACZ,oCAAC,MAAD;AAAA,IAAM,IAAI,KAAK;AAAA,KAAO,KAAK;AAAA;",
+  "names": []
+}

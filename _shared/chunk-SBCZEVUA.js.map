@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../app/headerContext.jsx"],
+  "sourcesContent": ["import { createContext } from \"react\";\n\nconst headerContext = createContext([\"\", () => {}]);\n\nexport const Provider = headerContext.Provider;\nexport const Consumer = headerContext.Consumer;\nexport const Context = headerContext;\n"],
+  "mappings": ";;;;;;;AAAA;AAAA,mBAA8B;AAE9B,IAAM,gBAAgB,gCAAc,CAAC,IAAI,MAAM;AAAA;AAExC,IAAM,WAAW,cAAc;AAC/B,IAAM,WAAW,cAAc;AAC/B,IAAM,UAAU;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:/Users/brianholt/personal/remix-course-starter/app/routes/lessons/index.jsx?browser", "../../../../app/routes/lessons/index.jsx"],
+  "sourcesContent": ["export { default } from \"/Users/brianholt/personal/remix-course-starter/app/routes/lessons/index.jsx\";", "export default function Lesson() {\n    return (\n      <div>\n        <h1>Lesson????</h1>\n      </div>\n    );\n  }"],
+  "mappings": ";;;;;;AAAA;;;ACAA;AAAe,kBAAkB;AAC7B,SACE,oCAAC,OAAD,MACE,oCAAC,MAAD,MAAI;AAAA;",
+  "names": []
+}
